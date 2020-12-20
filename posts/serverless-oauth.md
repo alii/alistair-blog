@@ -56,7 +56,7 @@ If you open [http://localhost:3000](http://localhost:3000) in your browser, you 
 
 We're going to use `jsonwebtoken` for generating the users' tokens, `cookie` for serializing & parsing cookies and `node-fetch` for making our requests to the Discord API. Install them like this
 
-```
+```shell
 yarn add node-fetch jsonwebtoken cookie && yarn add @types/node-fetch @types/jsonwebtoken @types/cookie --dev
 ```
 
