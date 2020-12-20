@@ -26,9 +26,10 @@ export default function Slug({ post }: SlugProps) {
         <meta name="twitter:title" content={post.title} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:description" content={post.excerpt} />
+        <meta name="twitter:creator" content={"@alii"} />
         <meta
           name="twitter:image"
-          content={`https://blog.alistair.cloud/assets/covers/${post.cover}`}
+          content={`https://blog.alistair.cloud${post.cover}`}
         />
         <meta property="og:title" content={post.title} />
         <meta property="og:author" content={post.author.name} />
@@ -39,7 +40,7 @@ export default function Slug({ post }: SlugProps) {
         <meta property="og:description" content={post.excerpt} />
         <meta
           property="og:image"
-          content={`https://blog.alistair.cloud/assets/covers/${post.cover}`}
+          content={`https://blog.alistair.cloud${post.cover}`}
         />
         <meta property="og:type" content="website" />
       </Head>
