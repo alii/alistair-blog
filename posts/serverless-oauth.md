@@ -24,7 +24,7 @@ Since the early days of man, OAuth has always been a struggle for new developers
 
 Firstly, we're going to need to create a Next.js app. Feel free to _skip_ this if you "have one that you made earlier."
 
-#### Initialise project
+### Initialise project
 
 ```shell
 yarn create next-app my-app
@@ -36,7 +36,7 @@ or, if you use npm (although use of yarn is **strongly** recommended)
 npx create-next-app my-app
 ```
 
-#### Add TypeScript
+### Add TypeScript
 
 Next (no pun intended) we need to add and configure TypeScript.
 
@@ -52,7 +52,7 @@ At this point, we can start our app
 
 If you open [http://localhost:3000](http://localhost:3000) in your browser, you will see the welcome to Next.js page and we can confirm that your Next.js setup is all working.
 
-#### Adding dependencies
+### Adding dependencies
 
 We're going to use `jsonwebtoken` for generating the users' tokens, `cookie` for serializing & parsing cookies and `node-fetch` for making our requests to the Discord API. Install them like this
 
@@ -62,7 +62,7 @@ yarn add node-fetch jsonwebtoken cookie && yarn add @types/node-fetch @types/jso
 
 After this, you're going to want to make a director under the `pages` called `api`. In this `api` folder, make a new file called `oauth.ts`. This is where we will add the code for OAuth.
 
-#### The code
+### The code
 
 ```typescript
 import { NextApiRequest, NextApiResponse } from "next";
