@@ -54,8 +54,126 @@ If you open [http://localhost:3000](http://localhost:3000) in your browser, you 
 
 #### Adding dependencies
 
-We're going to use `jsonwebtoken` for generating the users' tokens, and `node-fetch` for making our requests to the Discord API. Install them like this
+We're going to use `jsonwebtoken` for generating the users' tokens, `cookie` for serializing & parsing cookies and `node-fetch` for making our requests to the Discord API. Install them like this
 
 ```
-yarn add node-fetch jsonwebtoken && yarn add @types/node-fetch @types/jsonwebtoken --dev
+yarn add node-fetch jsonwebtoken cookie && yarn add @types/node-fetch @types/jsonwebtoken @types/cookie --dev
 ```
+
+After this, you're going to want to make a director under the `pages` called `api`. In this `api` folder, make a new file called `oauth.ts`. This is where we will add the code for OAuth.
+
+#### The code
+
+```typescript
+import { NextApiRequest, NextApiResponse } from "next";
+import jwt from "jsonwebtoken";
+import fetch from "node-fetch";
+import cookie from "cookie";
+
+// Create our type definition for a Discord User
+interface DiscordUser {
+  id: string;
+  username: string;
+  avatar: string;
+  discriminator: string;
+  public_flags: number;
+  flags: number;
+  locale: string;
+  mfa_enabled: boolean;
+  premium_type: number;
+}
+
+// Extract environment variables from process.env
+// (we will come on to this later)
+const {
+  CLIENT_SECRET,
+  CLIENT_ID,
+  APP_URI,
+  JWT_SECRET,
+  COOKIE_NAME,
+} = process.env;
+
+// Create scopes, oauth querystring and URIs
+const scope = ["identify"].join(" ");
+const REDIRECT_URI = `${APP_URI}/api/oauth`;
+
+const OAUTH_QS = new URLSearchParams({
+  client_id: CLIENT_ID || "0",
+  redirect_uri: REDIRECT_URI,
+  response_type: "code",
+  scope,
+}).toString();
+
+const OAUTH_URI = `https://discord.com/api/oauth2/authorize?${OAUTH_QS}`;
+
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method !== "GET") return res.redirect("/");
+
+  // Find the code or error from the request querystring
+  const { code = null, error = null } = req.query;
+
+  // If there is an error, redirect to the index page
+  if (error) {
+    return res.redirect("/?error=oauth");
+  }
+
+  // If there is no code, redirect to the OAuth URI
+  if (!code || typeof code !== "string") return res.redirect(OAUTH_URI);
+
+  const body = new URLSearchParams({
+    client_id: CLIENT_ID!,
+    client_secret: CLIENT_SECRET!,
+    grant_type: "authorization_code",
+    redirect_uri: REDIRECT_URI,
+    code,
+    scope,
+  }).toString();
+
+  // Request our access token, defaulting it to null if something goes wrong
+  const { access_token = null } = await fetch(
+    "https://discord.com/api/oauth2/token",
+    {
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      method: "POST",
+      body,
+    }
+  ).then((res) => res.json());
+
+  // If the access token does not exist, return
+  if (!access_token || typeof access_token !== "string") {
+    return res.redirect(OAUTH_URI);
+  }
+
+  // Fetch this current user (uses the "identify" scope)
+  const me: DiscordUser | { unauthorized: true } = await fetch(
+    "http://discord.com/api/users/@me",
+    {
+      headers: { Authorization: `Bearer ${access_token}` },
+    }
+  ).then((res) => res.json());
+
+  // If the id does not exist in the response body, request reauthorization
+  if (!("id" in me)) {
+    return res.redirect(OAUTH_URI);
+  }
+
+  // Sign a JWT with the payload of the current user...
+  const token = jwt.sign(me, JWT_SECRET!, { expiresIn: "24h" });
+
+  // ...and set it as a header
+  res.setHeader(
+    "Set-Cookie",
+    cookie.serialize(COOKIE_NAME!, token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== "development",
+      sameSite: "lax",
+      path: "/",
+    })
+  );
+
+  // Redirect back to the homepage
+  res.redirect("/");
+};
+```
+
+There a bit more to do, but the main setup of our oauth endpoint is finished. It's really not too much to swallow 😅

@@ -9,7 +9,7 @@
   "dependencies": {
     "classnames": "2.2.6",
     "dayjs": "^1.9.7",
-    "gray-matter": "4.0.2",
+    "gray-matter": "^4.0.2",
     "markdown-to-jsx": "^7.1.0",
     "next": "latest",
     "nprogress": "^0.2.0",
