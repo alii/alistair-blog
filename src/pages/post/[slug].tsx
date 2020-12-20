@@ -10,14 +10,39 @@ import { AuthorDisplay } from "../../components/author-display";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialLight as light } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { ReactNode } from "react";
+import Head from "next/head";
 
 type SlugProps = {
-  post: Omit<Post, "slug">;
+  post: Post;
 };
 
 export default function Slug({ post }: SlugProps) {
   return (
     <Layout>
+      <Head>
+        <title>{post.title}</title>
+        <meta name="description" content={post.excerpt} />
+        <meta name="twitter:site" content="@alii" />
+        <meta name="twitter:title" content={post.title} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:description" content={post.excerpt} />
+        <meta
+          name="twitter:image"
+          content={`https://blog.alistair.cloud/assets/covers/${post.cover}`}
+        />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:author" content={post.author.name} />
+        <meta
+          property="og:url"
+          content={`https://blog.alistair.cloud/post/${post.slug}`}
+        />
+        <meta property="og:description" content={post.excerpt} />
+        <meta
+          property="og:image"
+          content={`https://blog.alistair.cloud/assets/covers/${post.cover}`}
+        />
+        <meta property="og:type" content="website" />
+      </Head>
       <Link href={"/"}>
         <a className={"font-bold text-4xl hover:underline"}>Blog.</a>
       </Link>
@@ -64,7 +89,7 @@ const options: MarkdownToJSX.Options = {
       props: { className: "mb-0.5 text-gray-500 mt-1" },
     },
     p: {
-      props: { className: "leading-7" },
+      props: { className: "leading-7 mb-5" },
     },
     img: {
       props: { className: "w-100 rounded-2xl" },
@@ -119,6 +144,7 @@ export const getStaticProps: GetStaticProps<SlugProps> = async (ctx) => {
         "author",
         "content",
         "cover",
+        "slug",
       ]),
     },
   };
