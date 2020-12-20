@@ -26,13 +26,13 @@ Firstly, we're going to need to create a Next.js app. Feel free to _skip_ this i
 
 #### Initialise project
 
-```
+```shell
 yarn create next-app my-app
 ```
 
 or, if you use npm (although use of yarn is **strongly** recommended)
 
-```
+```shell
 npx create-next-app my-app
 ```
 
@@ -40,7 +40,7 @@ npx create-next-app my-app
 
 Next (no pun intended) we need to add and configure TypeScript.
 
-```
+```shell
 cd my-app
 touch tsconfig.json
 yarn add typescript @types/node @types/react --dev
