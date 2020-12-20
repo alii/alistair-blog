@@ -1,0 +1,7 @@
+img.cover {
+  max-height: 80vh;
+}
+
+#nprogress .bar {
+  height: 5px;
+}
