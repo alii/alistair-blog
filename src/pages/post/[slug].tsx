@@ -96,6 +96,12 @@ const options: MarkdownToJSX.Options = {
     a: {
       props: { className: "underline hover:text-blue-500" },
     },
+    ol: {
+      props: { className: "list-decimal" },
+    },
+    ul: {
+      props: { className: "list-disc" },
+    },
     code: {
       component: (props: {
         children: ReactNode;
