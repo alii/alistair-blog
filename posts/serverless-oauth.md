@@ -264,6 +264,8 @@ import { GetServerSidePropsContext } from "next";
 import { parse } from "cookie";
 import { verify } from "jsonwebtoken";
 
+const { JWT_SECRET, COOKIE_NAME } = process.env;
+
 interface DiscordUser {
   id: string;
   username: string;
@@ -281,7 +283,7 @@ export function parseUser(ctx: GetServerSidePropsContext): DiscordUser | null {
     return null;
   }
 
-  const token = parse(ctx.req.headers.cookie)[process.env.COOKIE_NAME!];
+  const token = parse(ctx.req.headers.cookie)[COOKIE_NAME!];
 
   if (!token) {
     return null;
@@ -290,7 +292,7 @@ export function parseUser(ctx: GetServerSidePropsContext): DiscordUser | null {
   try {
     const { iat, exp, ...user } = verify(
       token,
-      config.jwtSecret
+      JWT_SECRET!
     ) as DiscordUser & { iat: number; exp: number };
 
     return user;
