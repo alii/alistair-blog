@@ -1,6 +1,6 @@
 ---
 title: "Serverless OAuth with Discord & Next.js"
-excerpt: "Since the early days of man, OAuth has always been a struggle for new developers. In the stone age, we struggled with three things; starting fires, finding food, and figuring out why our OAuth scopes..."
+excerpt: "Since the early days of man, OAuth has always been a struggle for new developers. In the stone age, we struggled with three things: starting fires, finding food, and figuring out why our OAuth scopes..."
 cover: "/assets/covers/cctv.jpg"
 date: "2020-12-20T15:29:55.000Z"
 author:
@@ -16,7 +16,7 @@ const user: User = ifOnlyOAuthWasThisSimple(getToken());
 
 <small>Before we start, you can view the entire code [here](https://github.com/alii/nextjs-discord-oauth)</small>
 
-Since the early days of man, OAuth has always been a struggle for new developers. In the stone age, we struggled with three things; starting fires, finding food, and figuring out why our OAuth scopes aren't working. Well explorer, look no further. Today, we'll be going through the process of connecting & deploying Discord's OAuth 2 API with Next.js and serverless [now functions](https://vercel.com/docs/serverless-functions/introduction)
+Since the early days of man, OAuth has always been a struggle for new developers. In the stone age, we struggled with three things: starting fires, finding food, and figuring out why our OAuth scopes weren't working. Well explorer, look no further. Today, we'll be going through the process of connecting & deploying Discord's OAuth 2 API with Next.js and serverless [now functions](https://vercel.com/docs/serverless-functions/introduction)
 
 ---
 
@@ -46,7 +46,7 @@ touch tsconfig.json
 yarn add typescript @types/node @types/react --dev
 ```
 
-After this, you must rename every file in the project to end in tsx
+After this, you must rename every file in the project to end in `.tsx` for apps with JSX, and `.ts` for apps without.
 
 At this point, we can start our app
 
@@ -176,7 +176,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 };
 ```
 
-There a bit more to do, but the main setup of our oauth endpoint is finished. It's really not too much to swallow 😅
+There's a bit more to do, but the main setup of our oauth endpoint is finished. It's really not too much to swallow 😅
 
 ### Environment
 
@@ -327,12 +327,12 @@ Choose "Import Git Repository" and enter the URL of the repo you just made on Gi
 
 Great question! Since this is our production deployment and we are not running on `localhost`, we must set this to the URL that our app will be readily available on. If your project name is `my-new-app`, for example, then `APP_URI` could be `https://my-new-app.vercel.app`. If you are using a custom domain, then it would be that domain (with https).
 
-Finally, with this all together, you can run your app and do the full OAuth flow. If you have any questions, pm me on discord **alistair#9999** or email me at hey@alistair.cloud. I'll try and reply as quick as possible.
+Finally, with this all together, you can run your app and do the full OAuth flow. If you have any questions, pm me on discord **alistair#9999** or email me at hey@alistair.cloud. I'll try and reply as quickly as possible.
 
 ### Next steps
 
-1. Extract `DiscordUser` to a seperate file called `types.ts` (under `util` would make sense), so we are not repeating ourselves (this is done in the repo)
-2. Make coffee
+1. Extract `DiscordUser` to a seperate file called `types.ts` (under `util` would make sense), so we are not repeating ourselves (this is done in the repo).
+2. Make coffee.
 
 If this article helped you, please [star the repo](https://github.com/alii/nextjs-discord-oauth) – it really helps me out!
 
