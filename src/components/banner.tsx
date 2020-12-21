@@ -8,7 +8,7 @@ export function Banner() {
       <p className={"text-sm"}>
         The source code for this blog is{" "}
         <a
-          href="https://github.com/alii/alistair"
+          href="https://github.com/alii/alistair-blog"
           className={"underline hover:text-blue-500"}
         >
           available on GitHub
