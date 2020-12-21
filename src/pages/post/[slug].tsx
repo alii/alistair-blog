@@ -12,9 +12,7 @@ import { materialLight as light } from "react-syntax-highlighter/dist/cjs/styles
 import { ReactNode } from "react";
 import Head from "next/head";
 
-type SlugProps = {
-  post: Post;
-};
+type SlugProps = { post: Post };
 
 export default function Slug({ post }: SlugProps) {
   return (

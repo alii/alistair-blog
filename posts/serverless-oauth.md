@@ -182,4 +182,115 @@ There a bit more to do, but the main setup of our oauth endpoint is finished. It
 
 ###### No... I'm not talking about the weather...
 
-Next up, we must configure our environment variables.
+Next up, we must configure our environment variables. Head over to [discord.com/developers](https://discord.com/developers/applications) & create a new application (or use one if you already have it).
+
+You'll want to save the `CLIENT ID` and `CLIENT SECRET` somewhere safe, as seen in the screenshot below.
+
+![A screenshot of the Discord Client ID and Client Secret on the dashboard](/assets/images/discord-applications.png)
+
+After this, create a file in the root directory of your project called `.env`. This is where we will store our secrets (sensitive information that shouldn't be hardcoded). Add in the following content to `.env`:
+
+```dotenv
+CLIENT_ID=<the client id you copied>
+CLIENT_SECRET=<the client secret you copied>
+APP_URI=http://localhost:3000
+JWT_SECRET=development-only-jwt-secret-value-change-me-in-prod!
+COOKIE_NAME=token
+```
+
+Eventually, we will **change** `APP_URI` and `JWT_SECRET`, so don't save them anywhere for now.
+
+Now, if you rerun the app with `yarn dev` and head to [localhost:3000/api/oauth](http://localhost:3000/api/oauth) you should be redirected to the OAuth URI. However, you may see an issue regarding an invalid Redirect URI. To resolve this, head to "OAuth2" under the sidebar (as seen below):
+
+![A screenshot of the Discord developer dashboard sidebar](/assets/images/discord-oauth-panel.png)
+
+Add `http://localhost:3000/api/oauth` as an entry for usable Redirect URIs.
+
+![Adding a Redirect](/assets/images/discord-redirect.png)
+
+### Displaying the user's details
+
+Our last step is to display the user's details in the app. If you head to `pages/index.tsx`, add the following code
+
+```typescript jsx
+import { GetServerSideProps } from "next";
+import { parseUser } from "../utils/parse-user";
+
+interface DiscordUser {
+  id: string;
+  username: string;
+  avatar: string;
+  discriminator: string;
+  public_flags: number;
+  flags: number;
+  locale: string;
+  mfa_enabled: boolean;
+  premium_type: number;
+}
+
+type Props = { user: DiscordUser | null };
+
+export default function Index(props: Props) {
+  if (!props.user) {
+    return <p>You are being redirected.</p>;
+  }
+
+  return (
+    <h1>
+      Hey, {props.user.username}#{props.user.discriminator}
+    </h1>
+  );
+}
+
+export const getServerSideProps: GetServerSideProps<Props> = async function (
+  ctx
+) {
+  const user = parseUser(ctx);
+
+  if (!user) {
+    ctx.res.statusCode = 307;
+    ctx.res.setHeader("Location", "/api/oauth");
+    ctx.res.end();
+  }
+
+  return { props: { user } };
+};
+```
+
+...and create a file under a new directory called `utils` with the name of `parse-user.ts`. Add the following code:
+
+```ts
+import { GetServerSidePropsContext } from "next";
+import { DiscordUser } from "./types";
+import { parse } from "cookie";
+import { verify } from "jsonwebtoken";
+
+export function parseUser(ctx: GetServerSidePropsContext): DiscordUser | null {
+  if (!ctx.req.headers.cookie) {
+    return null;
+  }
+
+  const token = parse(ctx.req.headers.cookie)[process.env.COOKIE_NAME!];
+
+  if (!token) {
+    return null;
+  }
+
+  try {
+    const { iat, exp, ...user } = verify(
+      token,
+      config.jwtSecret
+    ) as DiscordUser & { iat: number; exp: number };
+
+    return user;
+  } catch (e) {
+    return null;
+  }
+}
+```
+
+Finally, with this all together, you can run your app and do the full OAuth flow. If you have any questions, pm me on discord **alistair#9999** or email me at hey@alistair.cloud. I'll try and reply as quick as possible.
+
+If this article helped you, please [star the repo](https://github.com/alii/nextjs-discord-oauth) – it really helps me out!
+
+Best, Alistair x
