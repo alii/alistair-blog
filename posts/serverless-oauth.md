@@ -245,14 +245,19 @@ export default function Index(props: Props) {
 export const getServerSideProps: GetServerSideProps<Props> = async function (
   ctx
 ) {
+  // Use our parseUser function (defined in the next steps)
   const user = parseUser(ctx);
 
+  // If the user is null, return 307 (redirect)
   if (!user) {
     ctx.res.statusCode = 307;
+    // ...to the /api/oauth endpoint
     ctx.res.setHeader("Location", "/api/oauth");
+    // ...and end the request early
     ctx.res.end();
   }
 
+  // return our props of a nullish user
   return { props: { user } };
 };
 ```
@@ -264,6 +269,7 @@ import { GetServerSidePropsContext } from "next";
 import { parse } from "cookie";
 import { verify } from "jsonwebtoken";
 
+// Get our environment variables
 const { JWT_SECRET, COOKIE_NAME } = process.env;
 
 interface DiscordUser {
@@ -279,24 +285,30 @@ interface DiscordUser {
 }
 
 export function parseUser(ctx: GetServerSidePropsContext): DiscordUser | null {
+  // Check if the cookie exists, if not return null
   if (!ctx.req.headers.cookie) {
     return null;
   }
 
+  // Parse the token from headers
   const token = parse(ctx.req.headers.cookie)[COOKIE_NAME!];
 
+  // If there is no token, return null
   if (!token) {
     return null;
   }
 
+  // Try parsing the JWT (this can throw errors, hence the try/catch block)
   try {
     const { iat, exp, ...user } = verify(
       token,
       JWT_SECRET!
     ) as DiscordUser & { iat: number; exp: number };
 
+    // Return the user
     return user;
   } catch (e) {
+    // Something went wrong. Likely being an invalid signature sent by the client
     return null;
   }
 }
@@ -335,6 +347,8 @@ Finally, with this all together, you can run your app and do the full OAuth flow
 
 1. Extract `DiscordUser` to a seperate file called `types.ts` (under `util` would make sense), so we are not repeating ourselves (this is done in the repo).
 2. Make coffee.
+
+---
 
 If this article helped you, please [star the repo](https://github.com/alii/nextjs-discord-oauth) – it really helps me out!
 
