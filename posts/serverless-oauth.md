@@ -50,7 +50,7 @@ After this, you must rename every file in the project to end in tsx
 
 At this point, we can start our app
 
-If you open [http://localhost:3000](http://localhost:3000) in your browser, you will see the welcome to Next.js page and we can confirm that your Next.js setup is all working.
+If you open [http://localhost:3000](http://localhost:3000) in your browser you will see the welcome to Next.js page – if so, we can confirm that your Next.js setup is all working.
 
 ### Adding dependencies
 
@@ -177,3 +177,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 ```
 
 There a bit more to do, but the main setup of our oauth endpoint is finished. It's really not too much to swallow 😅
+
+### Environment
+
+###### No... I'm not talking about the weather...
+
+Next up, we must configure our environment variables.
