@@ -300,6 +300,33 @@ export function parseUser(ctx: GetServerSidePropsContext): DiscordUser | null {
 }
 ```
 
+### Almost there
+
+Our last thing to do is to deploy our app to vercel. Firstly, ensure that you have vercel CLI installed
+
+```shell
+yarn global add vercel
+vercel login
+```
+
+After this, run `git init` to ensure that you have initiated a local git repository here. Create a repo on GitHub and then run
+
+```shell
+git remote add origin https://github.com/username/repo-name
+```
+
+To connect the repo to your GitHub remote.
+
+Lastly, we need to deploy the app on Vercel. Open the [Vercel dashboard](https://vercel.com/dashboard) and hit "import project"
+
+![Vercel import project button screenshot](/assets/images/vercel-import.png)
+
+Choose "Import Git Repository" and enter the URL of the repo you just made on GitHub. Next, under environment settings, you need to add the same variables we defined in our local `.env`. **However**, you must set `JWT_SECRET` to a cryptographically secure, randomly generated string. I would recommend [this website](https://passwordsgenerator.net/) as a good start.
+
+##### Hey! What about `APP_URI`?!
+
+Great question! Since this is our production deployment and we are not running on `localhost`, we must set this to the URL that our app will be readily available on. If your project name is `my-new-app`, for example, then `APP_URI` could be `https://my-new-app.vercel.app`. If you are using a custom domain, then it would be that domain (with https).
+
 Finally, with this all together, you can run your app and do the full OAuth flow. If you have any questions, pm me on discord **alistair#9999** or email me at hey@alistair.cloud. I'll try and reply as quick as possible.
 
 ### Next steps
