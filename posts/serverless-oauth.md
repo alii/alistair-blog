@@ -212,7 +212,7 @@ Add `http://localhost:3000/api/oauth` as an entry for usable Redirect URIs.
 
 Our last step is to display the user's details in the app. If you head to `pages/index.tsx`, add the following code
 
-```typescript jsx
+```typescript
 import { GetServerSideProps } from "next";
 import { parseUser } from "../utils/parse-user";
 
@@ -293,4 +293,4 @@ Finally, with this all together, you can run your app and do the full OAuth flow
 
 If this article helped you, please [star the repo](https://github.com/alii/nextjs-discord-oauth) – it really helps me out!
 
-Best, Alistair x
+Merry Christmas, Alistair x
