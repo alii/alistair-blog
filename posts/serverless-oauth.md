@@ -261,9 +261,20 @@ export const getServerSideProps: GetServerSideProps<Props> = async function (
 
 ```ts
 import { GetServerSidePropsContext } from "next";
-import { DiscordUser } from "./types";
 import { parse } from "cookie";
 import { verify } from "jsonwebtoken";
+
+interface DiscordUser {
+  id: string;
+  username: string;
+  avatar: string;
+  discriminator: string;
+  public_flags: number;
+  flags: number;
+  locale: string;
+  mfa_enabled: boolean;
+  premium_type: number;
+}
 
 export function parseUser(ctx: GetServerSidePropsContext): DiscordUser | null {
   if (!ctx.req.headers.cookie) {
@@ -290,6 +301,11 @@ export function parseUser(ctx: GetServerSidePropsContext): DiscordUser | null {
 ```
 
 Finally, with this all together, you can run your app and do the full OAuth flow. If you have any questions, pm me on discord **alistair#9999** or email me at hey@alistair.cloud. I'll try and reply as quick as possible.
+
+### Next steps
+
+1. Extract `DiscordUser` to a seperate file called `types.ts` (under `util` would make sense), so we are not repeating ourselves (this is done in the repo)
+2. Make coffee
 
 If this article helped you, please [star the repo](https://github.com/alii/nextjs-discord-oauth) – it really helps me out!
 
