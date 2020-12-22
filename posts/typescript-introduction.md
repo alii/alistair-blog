@@ -16,7 +16,7 @@ This post is totally work in progress, and I will keep updating it in the future
 
 # Intro
 
-TypeScript brings static types , an overwhelmingly welcoming community, a massively improved developer experience, modern sugar syntax, decorators and much, much more to JavaScript. It does this through an easy-to-learn syntax extension which we will go through today.
+TypeScript brings static types, an overwhelmingly welcoming community, a massively improved developer experience, modern sugar syntax, decorators and much, much more to JavaScript. It does this through an easy-to-learn syntax extension which we will go through today.
 
 ## Static Types
 
