@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import { Layout } from "../Layout";
+import { Layout } from "../components/Layout";
 import { GetStaticProps } from "next";
 import { Post } from "../lib/types";
 import { getAllPosts } from "../lib/api";

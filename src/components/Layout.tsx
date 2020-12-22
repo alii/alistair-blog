@@ -1,6 +1,6 @@
 import { Fragment, PropsWithChildren } from "react";
-import { Banner } from "./components/banner";
-import { Footer } from "./components/footer";
+import { Banner } from "./banner";
+import { Footer } from "./footer";
 
 export function Layout(props: PropsWithChildren<{}>) {
   return (

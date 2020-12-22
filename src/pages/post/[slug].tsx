@@ -1,4 +1,4 @@
-import { Layout } from "../../Layout";
+import { Layout } from "../../components/Layout";
 import { Post } from "../../lib/types";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { getAllPosts, getPostBySlug } from "../../lib/api";
