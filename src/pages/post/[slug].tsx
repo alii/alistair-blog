@@ -11,10 +11,13 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialLight as light } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import React, { ReactNode } from "react";
 import Head from "next/head";
+import { useReadingTime } from "../../lib/hooks";
 
 type SlugProps = { post: Post };
 
 export default function Slug({ post }: SlugProps) {
+  const time = useReadingTime(post.content);
+
   return (
     <Layout>
       <Head>
@@ -49,7 +52,7 @@ export default function Slug({ post }: SlugProps) {
         </a>
       </Link>
       <div className="mt-20">
-        <div className="pb-3">
+        <div className="pb-3 flex">
           <a
             href={`https://twitter.com/intent/tweet?text=${post.title} by @${post.author.twitter} – https://blog.alistair.cloud/post/${post.slug}`}
             target="_blank"
@@ -57,6 +60,9 @@ export default function Slug({ post }: SlugProps) {
           >
             Share
           </a>
+          <p className="py-2 px-5 bg-gray-50 text-gray-600">
+            {time} minute read
+          </p>
         </div>
         <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-tight md:leading-none mb-5">
           {post.title}
