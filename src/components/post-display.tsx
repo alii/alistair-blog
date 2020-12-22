@@ -18,7 +18,11 @@ export function PostDisplay({ post, large = false }: PostDisplayProps) {
       {post.title && post.cover && (
         <CoverImage title={post.title} src={post.cover} slug={post.slug} />
       )}
-      <div className={`flex flex-col md:flex-${large ? "row" : "col"} mt-10`}>
+      <div
+        className={`flex flex-col ${
+          large ? "md:flex-row" : "md:flex-col"
+        } mt-10`}
+      >
         <div className="flex-1 md:mr-5">
           <Link href={`/post/${post.slug}`}>
             <h1 className="text-5xl hover:underline cursor-pointer pb-10">
