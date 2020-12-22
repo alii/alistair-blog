@@ -51,7 +51,7 @@ export default function Slug({ post }: SlugProps) {
       <div className="mt-20">
         <div className="pb-3">
           <a
-            href={`https://twitter.com/intent/tweet?text=${post.title} – https://blog.alistair.cloud/post/${post.slug}`}
+            href={`https://twitter.com/intent/tweet?text=${post.title} by @${post.author.twitter} – https://blog.alistair.cloud/post/${post.slug}`}
             target="_blank"
             className="py-2 px-5 bg-blue-50 text-blue-600 inline-block transition-colors hover:bg-blue-100"
           >
