@@ -10,7 +10,9 @@ author:
   twitter: aabbccsmith
 ---
 
-This post is primarily for developers who _already_ have a fairly solid JavaScript understanding. Whilst TypeScript is brilliant, it's not amazing for those just starting out. I would recommend getting a solid grasp on the fundamentals of JS before moving on to an abstraction such as TS.
+#### This post is a work in progress, and will be updated over time.
+
+This post is totally work in progress, and I will keep updating it in the future. It's primarily made for developers who _already_ have a fairly solid JavaScript understanding. Whilst TypeScript is brilliant, it's not amazing for those just starting out. I would recommend getting a solid grasp on the fundamentals of JS before moving on to an abstraction such as TS.
 
 # Intro
 
