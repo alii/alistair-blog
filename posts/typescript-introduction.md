@@ -32,7 +32,7 @@ const result = add(10, 20); // => 30
 
 Now, this is perfectly fine as long as we always pass this function two numbers, but what if we passed it a string instead?
 
-If we did `add("Hello", 2)`, it would return `"Hello2"`. This is because JavaScript, under the hood, coerces the type of "2" to become a string so that it can be concatenated to the end of `"Hello"`. Phew, tha was a mouthful.
+If we did `add("Hello", 2)`, it would return `"Hello2"`. This is because JavaScript, under the hood, coerces the type of "2" to become a string so that it can be concatenated to the end of `"Hello"`. Phew, that was a mouthful.
 
 The issue here is that this function is only meant to add two numbers together, yet we are able to pass other types of variables, and even worse, it "works."
 
