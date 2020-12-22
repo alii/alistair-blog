@@ -11,9 +11,10 @@ export const CoverImage = ({ title, src, slug }: Props) => {
     <img
       src={src}
       alt={`Cover Image for ${title}`}
-      className={"rounded cover object-cover w-full"}
+      className="cover object-cover w-full"
     />
   );
+
   return (
     <div className="sm:mx-0">
       {slug ? (

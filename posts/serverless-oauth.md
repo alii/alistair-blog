@@ -3,9 +3,11 @@ title: "Serverless OAuth with Discord & Next.js"
 excerpt: "Since the early days of man, OAuth has always been a struggle for new developers. In the stone age, we struggled with three things: starting fires, finding food, and figuring out why our OAuth scopes..."
 cover: "/assets/covers/cctv.jpg"
 date: "2020-12-20T15:29:55.000Z"
+tags: "discord, oauth, nextjs, vercel, typescript, javascript, next.js"
 author:
   name: Alistair Smith
   avatar: "/assets/authors/alistair.png"
+  twitter: aabbccsmith
 ---
 
 ```typescript
@@ -300,10 +302,10 @@ export function parseUser(ctx: GetServerSidePropsContext): DiscordUser | null {
 
   // Try parsing the JWT (this can throw errors, hence the try/catch block)
   try {
-    const { iat, exp, ...user } = verify(
-      token,
-      JWT_SECRET!
-    ) as DiscordUser & { iat: number; exp: number };
+    const { iat, exp, ...user } = verify(token, JWT_SECRET!) as DiscordUser & {
+      iat: number;
+      exp: number;
+    };
 
     // Return the user
     return user;
