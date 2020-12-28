@@ -12,9 +12,11 @@ author:
 
 # Intro
 
+### There a [Repo](https://github.com/alii/next-tailwind-ts) with a template pre-made.
+
 Setting up tailwind with Next.js & TypeScript can seem intimidating, but it's a fairly straightforward process once you have it all simplified.
 
-## Prerequisites 
+## Prerequisites
 
 yarn (or npm), Node.js 12+
 
@@ -48,7 +50,7 @@ This will create a `tailwind.config.js` as well as `postcss.config.js`. If you h
 
 ```js
 module.exports = {
-  purge: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
+  purge: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
@@ -57,7 +59,7 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-}
+};
 ```
 
 And finally, our app is ready to start.
