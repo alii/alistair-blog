@@ -12,7 +12,6 @@ import { materialLight as light } from "react-syntax-highlighter/dist/cjs/styles
 import React, { ReactNode } from "react";
 import Head from "next/head";
 import { useReadingTime } from "../../lib/hooks";
-import { DisqusComments } from "../../components/disqus";
 
 type SlugProps = { post: Post };
 
@@ -76,9 +75,6 @@ export default function Slug({ post }: SlugProps) {
         <CoverImage title={post.title} src={post.cover} />
         <div className="mt-10 max-w-2xl mx-auto">
           <Markdown options={options}>{post.content}</Markdown>
-        </div>
-        <div className="mt-5 max-w-2xl mx-auto">
-          <DisqusComments post={post} />
         </div>
       </div>
     </Layout>
