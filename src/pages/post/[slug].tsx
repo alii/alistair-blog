@@ -164,6 +164,7 @@ export const getStaticProps: GetStaticProps<SlugProps> = async (ctx) => {
         "tags",
       ]),
     },
+    revalidate: 120,
   };
 };
 
