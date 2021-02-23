@@ -46,5 +46,6 @@ export const getStaticProps: GetStaticProps<IndexProps> = async function () {
     props: {
       posts: getAllPosts(fields as Writeable<typeof fields>),
     },
+    revalidate: 120,
   };
 };
